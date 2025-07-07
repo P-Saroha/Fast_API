@@ -1,5 +1,5 @@
-from fastapi import FastAPI, HTTPException
-import json
+from fastapi import FastAPI, HTTPException, Path
+import json 
 
 app = FastAPI()
 
@@ -26,7 +26,7 @@ async def view_patients():
     return {"patients": data}
 
 @app.get('/patient/{patient_id}')
-async def view_patient(patient_id: str):
+async def view_patient(patient_id: str = Path(..., description="The ID of the patient to view")):
     data = get_json()
     if patient_id in data:
         return data[patient_id]
