@@ -26,3 +26,13 @@ async def about():
 async def view_patients():
     data = get_json()
     return {"patients": data} 
+
+@app.get('/patient/{patient_id}')
+
+async def view_patient(patient_id):
+
+    data = get_json()
+
+    if patient_id in data:
+        return {"patient": data[patient_id]}
+    return {"error": "Patient not found"}, 404
