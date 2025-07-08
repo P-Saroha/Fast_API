@@ -25,6 +25,12 @@ class Patient(BaseModel):
             raise ValueError("Name must contain only alphabetic characters.")
         return value
 
+    @field_validator('age', mode='before')
+    @classmethod
+    def age_validator(cls, value):
+        if value < 0 or value > 100:
+            raise ValueError("Age must be between 0 and 100.")
+        return value
 # Example usage of the Patient model
 def insert_patient(patient: Patient):
     # Here you would typically insert the patient into a database or perform some action
