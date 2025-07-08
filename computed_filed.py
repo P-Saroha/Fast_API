@@ -22,7 +22,7 @@ def insert_patient(patient: Patient):
     # Here you would typically insert the patient into a database or perform some action
     print(f"Inserting patient: {patient.name}, Age: {patient.age}, Email: {patient.email}, Height: {patient.height}, Weight: {patient.weight}, Contact: {patient.contact_info}, BMI : {patient.calculate_bmi}") 
 
-patient_info = { 'name': 'Parveen', 'age': 20, 'email': 'pks@iitm.com', 'height': 1.8, 'weight': 60.0,  'contact_info': {'phone': '123-456-7890', 'email':'abbb@iitm.com'} }
+patient_info = { 'name': 'Parveen', 'age': 20, 'email': 'pks@iitm.com', 'height': 1.9, 'weight': 60.0,  'contact_info': {'phone': '123-456-7890', 'email':'abbb@iitm.com'} }
 
 pateint1 = Patient(**patient_info)
 insert_patient(pateint1)
