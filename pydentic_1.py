@@ -1,5 +1,5 @@
-from pydantic import BaseModel
-from typing import Optional, List, Dict, EmailStr, Field, Annotated
+from pydantic import BaseModel,EmailStr,  Field
+from typing import Optional, List, Dict, Annotated
 
 
 class Patient(BaseModel):
@@ -27,4 +27,5 @@ patient_info = { 'name': 'Parveen', 'age': 20, 'emal': 'pks@gmail.com', 'height'
                  'emergency_contact': {'name': 'ABBA', 'phone': '987-654-3210'} }
 
 pateint1 = Patient(**patient_info)
+insert_patient(pateint1)
 
