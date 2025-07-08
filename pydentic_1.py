@@ -1,9 +1,9 @@
 from pydantic import BaseModel
-from typing import Optional, List, Dict, EmailStr, Field
+from typing import Optional, List, Dict, EmailStr, Field, Annotated
 
 
 class Patient(BaseModel):
-    name: str
+    name: Annotated[str, Field(min_length=1, max_length=100,title = "pateint name", description="Full name of the patient")]
     age: int
     email: Optional[EmailStr] = None
     height: Optional[float] = None
