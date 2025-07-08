@@ -1,4 +1,4 @@
-from pydantic import BaseModel,EmailStr,  Field, field_validator
+from pydantic import BaseModel,EmailStr,  Field, field_validator, model_validator
 from typing import Optional, List, Dict, Annotated
 
 
@@ -9,6 +9,7 @@ class Patient(BaseModel):
     height: Optional[float] = None
     weight: Optional[float] = Field(default=None, ge=0, description="Weight in kilograms, must be non-negative") 
     bmi: Optional[float] = None
+    contact_info: Optional[Dict[str, str]] = None
     
     @field_validator('email')
     @classmethod
@@ -31,12 +32,24 @@ class Patient(BaseModel):
         if value < 0 or value > 100:
             raise ValueError("Age must be between 0 and 100.")
         return value
+    
+
+    @model_validator(mode='after')
+    def validate_emergency_contact(cls, model: 'Patient'):
+        if model.age > 60 and 'emergency_contact' not in model.contact_info:
+            raise ValueError("Emergency contact is required for patients over 60 years old.")
+        return model
+
+
+
+
+
 # Example usage of the Patient model
 def insert_patient(patient: Patient):
     # Here you would typically insert the patient into a database or perform some action
-    print(f"Inserting patient: {patient.name}, Age: {patient.age}, Email: {patient.email}, Height: {patient.height}, Weight: {patient.weight}, BMI: {patient.bmi}")
+    print(f"Inserting patient: {patient.name}, Age: {patient.age}, Email: {patient.email}, Height: {patient.height}, Weight: {patient.weight}, BMI: {patient.bmi} ,Contact: {patient.contact_info}" )
 
-patient_info = { 'name': 'Parveen', 'age': 20, 'email': 'pks@iitm.com', 'height': 5.5, 'weight': 60.0, 'bmi': 22.0}
+patient_info = { 'name': 'Parveen', 'age': 20, 'email': 'pks@iitm.com', 'height': 5.5, 'weight': 60.0, 'bmi': 22.0, 'contact_info': {'phone': '123-456-7890', 'email':'abbb@iitm.com'} }
 
 pateint1 = Patient(**patient_info)
 insert_patient(pateint1)
