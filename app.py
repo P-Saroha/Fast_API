@@ -109,8 +109,8 @@ def update_patient(patient_id: str, patient_update: PatientUpdate):
     
     existing_patient_info = data[patient_id]
 
-    updated_patient_info = patient_update.model_dump(exclude_unset=True)
-
+    updated_patient_info = patient_update.model_dump(exclude_unset=True) 
+    # model_dump() is used to convert the Pydantic model to a dictionary, excluding unset fields.
     for key, value in updated_patient_info.items():
         existing_patient_info[key] = value
 
